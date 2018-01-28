@@ -29,7 +29,7 @@ public class FoodDoor : MonoBehaviour {
     void Start()
     {
         anim = GetComponent<Animator>();
-        light.enabled = false;
+        light.color = Color.red;
     }
 
 
@@ -37,7 +37,7 @@ public class FoodDoor : MonoBehaviour {
     {
         if (!foodLocked)
         {
-            light.enabled = true;
+            light.color = Color.green;
         }
 
         float distance = Vector3.Distance(transform.position, character.transform.position);

@@ -3,7 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - food
+  - battery
+  - item
+  - art
+  - plant
+  - investigate
+  - myBed
+  - bed
+  - scanner
+  - sofa
+  - fooddisp
   layers:
   - Default
   - TransparentFX

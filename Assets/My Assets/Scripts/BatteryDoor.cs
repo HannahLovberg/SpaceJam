@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlantDoor : MonoBehaviour {
+public class BatteryDoor : MonoBehaviour {
 
     private Animator anim;
 
@@ -11,7 +11,7 @@ public class PlantDoor : MonoBehaviour {
     [SerializeField]
     private float distanceToOpen = 3;
 
-    public bool plantLocked = true;
+    public bool batteryLocked = true;
 
     private bool played = false;
     [SerializeField]
@@ -29,22 +29,22 @@ public class PlantDoor : MonoBehaviour {
     void Start()
     {
         anim = GetComponent<Animator>();
-        light.enabled = false;
+        light.color = Color.red;
     }
 
 
     void Update()
     {
-        if(!plantLocked)
+        if (!batteryLocked)
         {
-            light.enabled = true;
+            light.color = Color.green;
         }
 
         float distance = Vector3.Distance(transform.position, character.transform.position);
 
-        if (distanceToOpen >= distance && !plantLocked)
+        if (distanceToOpen >= distance && !batteryLocked)
         {
-            if (!played)
+            if(!played)
             {
                 source.PlayOneShot(openSound);
                 played = true;

@@ -5,9 +5,10 @@ using UnityEngine;
 public class PickUpScript : MonoBehaviour
 {
     [SerializeField]
-    private Camera camera;
+    private GameObject player;
+    private Camera pCamera;
 
-    private bool carrying;
+    public bool carrying;
     private GameObject carriedObject;
     public float distance;
     public float smooth;
@@ -15,7 +16,7 @@ public class PickUpScript : MonoBehaviour
 
     void Start()
     {
-
+       pCamera = player.GetComponent<Camera>();
     }
 
 
@@ -35,7 +36,7 @@ public class PickUpScript : MonoBehaviour
 
     private void carry(GameObject obj)
     {
-        obj.transform.position = Vector3.Lerp(obj.transform.position, camera.transform.position + camera.transform.forward * distance, Time.deltaTime * smooth);
+        obj.transform.position = Vector3.Lerp(obj.transform.position, pCamera.transform.position + pCamera.transform.forward * distance, Time.deltaTime * smooth);
         //obj.transform.rotation = Quaternion.identity;
     }
 
@@ -64,12 +65,12 @@ public class PickUpScript : MonoBehaviour
             int y = Screen.height / 2;
 
             //ray = camera.ScreenPointToRay(Input.mousePosition);
-            ray = camera.ScreenPointToRay(new Vector3(x, y));
+            ray = pCamera.ScreenPointToRay(new Vector3(x, y));
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
                 Pickupable p = hit.collider.GetComponent<Pickupable>();
-                if (p != null && Vector3.Distance(hit.collider.gameObject.transform.position, camera.transform.position) < 2.5f)
+                if (p != null && Vector3.Distance(hit.collider.gameObject.transform.position, pCamera.transform.position) < 2.5f)
                 {
                     carrying = true;
                     carriedObject = hit.collider.gameObject;
@@ -94,7 +95,7 @@ public class PickUpScript : MonoBehaviour
         carrying = false;
         carriedObject.gameObject.GetComponent<Rigidbody>().useGravity = true;
         carriedObject.gameObject.GetComponent<Collider>().enabled = true;
-        carriedObject.GetComponent<Rigidbody>().AddForce(camera.transform.forward * throwForce);
+        carriedObject.GetComponent<Rigidbody>().AddForce(pCamera.transform.forward * throwForce);
         carriedObject = null;
     }
 }
